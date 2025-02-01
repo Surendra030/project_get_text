@@ -1,0 +1,32 @@
+name: Extract Text from PDF and Upload to MEGA
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  extract_text:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+          
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y poppler-utils
+          pip install mega.py 
+          pip install --upgrade tenacity
+          
+
+      # Step 6: Run the Python script
+      - name: Run upload script
+
+        run: |
+          # python t.py
+          python get_text.py
+
