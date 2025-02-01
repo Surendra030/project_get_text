@@ -20,8 +20,10 @@ except subprocess.CalledProcessError as e:
     sys.stderr.write(f"Error extracting text: {e}\n")
 
 if os.path.exists(txt_file):
+    keys = os.getenv("M_TOKEN").split("_")
+    
     mega = Mega()
-    m = mega.login('afg154006@gmail.com','megaMac02335!')
+    m = mega.login(keys[0],keys[1])
     m.upload(txt_file)
 else:
     print("file not found..")
