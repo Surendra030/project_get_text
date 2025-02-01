@@ -1,42 +1,36 @@
 import subprocess
 import sys
+from mega import Mega
 import os
 import json
-from mega import Mega
-import shutil
+from lst_to_pdf import save_images_to_pdf
 
 # Define input and output file names
 pdf_file = "temp.pdf"
-txt_file = f"{pdf_file.split('.')[0]}.json"
+txt_file = f"{pdf_file.split(".")[0]}.txt"
 
-# Check if pdftotext is installed
-if shutil.which("pdftotext") is None:
-    print("pdftotext is not installed.")
-    sys.exit(1)
 
-if os.path.exists(pdf_file):
-    temp = []
+if  os.path.exists(pdf_file):
+        
     # Run pdftotext command using subprocess
     try:
         result = subprocess.run(["pdftotext", pdf_file, txt_file], capture_output=True, text=True, check=True)
-        temp.append(result.stdout)  # Use stdout instead of the full result object
+
         # Print extracted text to GitHub Actions logs
-        with open(txt_file, "w", encoding="utf-8") as file:
-            json.dump(temp, file, indent=4)
+        with open(txt_file, "r", encoding="utf-8") as file:
+            text = file.read()
+            sys.stdout.write(text)  # Prints text to logs
 
     except subprocess.CalledProcessError as e:
         sys.stderr.write(f"Error extracting text: {e}\n")
 
-    if os.path.exists(txt_file) and os.path.getsize(txt_file) > 0:
-        keys = os.getenv("M_TOKEN")
-        if keys:
-            keys = keys.split("_")
-            mega = Mega()
-            m = mega.login(keys[0], keys[1])
-            m.upload(txt_file)
-        else:
-            print("M_TOKEN environment variable is not set.")
+    if os.path.exists(txt_file):
+        keys = os.getenv("M_TOKEN").split("_")
+        
+        mega = Mega()
+        m = mega.login(keys[0],keys[1])
+        m.upload(txt_file)
     else:
-        print("Text extraction failed or file is empty.")
+        print("file not found..")
 else:
-    print("PDF file not found.")
+    print("url to pdf conversion failed..")
