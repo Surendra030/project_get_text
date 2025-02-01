@@ -1,0 +1,4 @@
+requests
+Pillow
+fpdf
+mega.py

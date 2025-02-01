@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install -y poppler-utils
-          pip install mega.py 
+          pip install -r requirements.txt
           pip install --upgrade tenacity
           
 
