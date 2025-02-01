@@ -7,7 +7,7 @@ from lst_to_pdf import save_images_to_pdf
 
 # Define input and output file names
 pdf_file = "temp.pdf"
-txt_file = f"{pdf_file.split(".")[0]}.txt"
+txt_file = f"{pdf_file.split(".")[0]}.json"
 
 # img_lst_url = []
 # with open('json_lst.json',encoding='utf-8')as f:
@@ -17,15 +17,14 @@ txt_file = f"{pdf_file.split(".")[0]}.txt"
 # flag = save_images_to_pdf(img_lst_url, pdf_file)
 
 if os.path.exists(pdf_file):
-        
+    temp = []
     # Run pdftotext command using subprocess
     try:
         result = subprocess.run(["pdftotext", pdf_file, txt_file], capture_output=True, text=True, check=True)
-
+        temp.append(str(result))
         # Print extracted text to GitHub Actions logs
-        with open(txt_file, "r", encoding="utf-8") as file:
-            text = file.read()
-            sys.stdout.write(text)  # Prints text to logs
+        with open(txt_file, "w", encoding="utf-8") as file:
+            json.dump(temp,file,indent=4)
 
     except subprocess.CalledProcessError as e:
         sys.stderr.write(f"Error extracting text: {e}\n")
