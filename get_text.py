@@ -3,7 +3,6 @@ import sys
 from mega import Mega
 import os
 import json
-from lst_to_pdf import save_images_to_pdf
 
 # Define input and output file names
 pdf_file = "temp.pdf"
