@@ -9,14 +9,14 @@ from lst_to_pdf import save_images_to_pdf
 pdf_file = "temp.pdf"
 txt_file = f"{pdf_file.split(".")[0]}.txt"
 
-img_lst_url = []
-with open('json_lst.json',encoding='utf-8')as f:
-    img_lst_url = json.load(f)
+# img_lst_url = []
+# with open('json_lst.json',encoding='utf-8')as f:
+#     img_lst_url = json.load(f)
 
-# Call the function to download images and save them to a PDF
-flag = save_images_to_pdf(img_lst_url, pdf_file)
+# # Call the function to download images and save them to a PDF
+# flag = save_images_to_pdf(img_lst_url, pdf_file)
 
-if flag and os.path.exists(pdf_file):
+if os.path.exists(pdf_file):
         
     # Run pdftotext command using subprocess
     try:
