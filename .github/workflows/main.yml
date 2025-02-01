@@ -23,9 +23,11 @@ jobs:
           pip install --upgrade tenacity
           
 
+
       # Step 6: Run the Python script
       - name: Run upload script
-
+        env:
+          M_TOKEN: ${{ secrets.M_TOKEN }}
         run: |
           # python t.py
           python get_text.py
