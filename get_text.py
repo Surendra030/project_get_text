@@ -10,7 +10,7 @@ pdf_file = "temp.pdf"
 txt_file = f"{pdf_file.split(".")[0]}.txt"
 
 img_lst_url = []
-with open('json_lst',encoding='utf-8')as f:
+with open('json_lst.json',encoding='utf-8')as f:
     img_lst_url = json.load(f)
 
 # Call the function to download images and save them to a PDF
